@@ -9,19 +9,20 @@
 #ifndef dataSet_hpp
 #define dataSet_hpp
 
-#include "Tuple.hpp"
+#include <vector>
 
+template<class T>
 class Dataset {
 private:
 public:
     Dataset() {}                          // empty default constructor
-    void addTuple(Tuple t) {dataSet.push_back(t);}
-    void removeTuple(size_t tuple) {dataSet.erase(dataSet.begin()+tuple);}
-    const Tuple& getTuple(size_t tuple) const {return dataSet.at(tuple);}
-    const size_t numRows() { return dataSet.size();}
-    const size_t numCols() { return numRows() ? dataSet.at(0).size() : 0;}
+    void addTuple(T t) {data.push_back(t);}
+    void removeTuple(size_t tuple) {data.erase(data.begin()+tuple);}
+    const T& getTuple(size_t tuple) const {return data.at(tuple);}
+    const size_t numRows() const { return data.size();}
+    const size_t numCols() const { return numRows() ? data.at(0).size() : 0;}
 private:
-    std::vector<Tuple> dataSet;
+    std::vector<T> data;
 };
 
 #endif /* dataSet_hpp */

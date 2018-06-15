@@ -21,18 +21,21 @@
 class Tuple{
 private:
     typedef std::vector<float> vecFloat;
+    typedef unsigned int uint;
 public:
     Tuple():classLabel(-1) {}           // -1 should not be a valid class label
-    Tuple(size_t cl, vecFloat vf): classLabel(cl), features(vf) {}
-    size_t getClass() const {return classLabel;}
+    Tuple(uint cl, vecFloat vf): classLabel(cl), features(vf) {}
+    explicit Tuple(vecFloat vf): classLabel(-1), features(vf) {}
+    unsigned int getClass() const {return classLabel;}
     float getFeature(size_t feature) const { return features.at(feature); }
     const vecFloat& getFeatures() const { return features; }
     
     void addFeature(float feature) { features.push_back(feature); }
+    float distance(vecFloat&, uint) const;
     size_t size() const { return features.size(); }
     
 private:
-    size_t classLabel;
+    uint classLabel;
     vecFloat features;
 };
 
