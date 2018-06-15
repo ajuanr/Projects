@@ -22,16 +22,17 @@ class Tuple{
 private:
     typedef std::vector<float> vecFloat;
     typedef unsigned int uint;
+    const int invalidClass = -77;       // some random number I picked
 public:
-    Tuple():classLabel(-1) {}           // -1 should not be a valid class label
+    Tuple():classLabel(invalidClass) {}   
     Tuple(uint cl, vecFloat vf): classLabel(cl), features(vf) {}
     explicit Tuple(vecFloat vf): classLabel(-1), features(vf) {}
-    unsigned int getClass() const {return classLabel;}
+    uint getClass() const {return classLabel;}
     float getFeature(size_t feature) const { return features.at(feature); }
     const vecFloat& getFeatures() const { return features; }
     
-    void addFeature(float feature) { features.push_back(feature); }
-    float distance(vecFloat&, uint) const;
+    void addFeature(const float feature) { features.push_back(feature); }
+    float distance(const vecFloat&, uint) const;
     size_t size() const { return features.size(); }
     
 private:
