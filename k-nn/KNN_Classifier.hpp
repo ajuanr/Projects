@@ -9,11 +9,6 @@
 #ifndef KNN_Classifier_hpp
 #define KNN_Classifier_hpp
 
-class KNN {
-public:
-    
-private:
-    std::vector<datapoint> matrix;
-};
+#include "dataSet.hpp"
 
 #endif /* KNN_Classifier_hpp */
