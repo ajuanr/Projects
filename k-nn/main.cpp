@@ -6,8 +6,10 @@
 //  Copyright © 2018 Juan Ruiz. All rights reserved.
 //
 
+#include <fstream>
 #include <iostream>
 #include <iomanip>
+#include <sstream>
 #include "KNN_Classifier.hpp"
 
 #include <cstdlib>
@@ -30,11 +32,42 @@ Tuple makeTuple() {
 }
 /**************************/
 
+/****** Get Input from file ********/
+// Parse a single line. Return a vector containing the feature data
+Tuple parseLine(const string line) {
+    stringstream features;
+    features << line;
+    Tuple output;
+    float temp;
+    if (features>>temp) {output.setClass(temp);}
+    while(features>>temp) {output.addFeature(temp);}
+    return output;
+}
+
+// Read the data and return a vector containing the data
+Dataset<Tuple> readData(const string fileName){
+    cout << "\nUsing: " << fileName << endl << endl;
+    ifstream input;
+    input.open(fileName, ifstream::in);
+    Dataset<Tuple> output;
+    if (!input.is_open()) {
+        cout << "File failed to open\n";
+        return output;
+    }
+    string line;
+    while (getline (input,line) ) {
+        output.addTuple(parseLine(line));
+    }
+    input.close();
+    return output;
+}
+
+
 template <class T>
 void printDataset(const Dataset<T> &db) {
     for (size_t i = 0; i != db.numRows(); ++i) {
         for (size_t j = 0; j != db.numCols(); ++j) {
-            cout << setw(3) << db.getTuple(i).getFeature(j) << " ";
+            cout << setw(10) << db.getTuple(i).getFeature(j) << " ";
         }
         cout << "  " << db.getTuple(i).getClass() << endl;
     }
@@ -42,27 +75,22 @@ void printDataset(const Dataset<T> &db) {
 }
 
 int main(int argc, const char * argv[]) {
-    Dataset<Tuple> data;
-    for (int i = 0; i != 20; ++i) {
-        data.addTuple(makeTuple());
-    }
-    printDataset(data);
-    
-    cout << endl;
-    
+    //Dataset<Tuple> data(readData("CS170Smalltestdata__44.txt"));
+    Dataset<Tuple> data(readData("CS170BIGtestdata__4.txt"));
+//
     KNN knn(data);
     knn.fillDistancesMatrix();
-    Dataset<myQ> distances = knn.getDistances();
-    //printDataset(distances);
-    for (int i = 0; i != distances.numRows(); ++i) {
-        for (int j = 0; j != 3; ++j) {
-            //cout << setw(3) << distances.getTuple(i).top().getDist() << " ";
-            cout << setw(3) << distances.getTuple(i).top().getLabel() << " ";
-            distances.editTuple(i).pop();
-        }
-        cout << endl;
-    }
+
     
     
+//    for (int k = 1; k <=21; k += 2 ) {
+//        cout << k << endl;
+//    std::vector<unsigned int> v(knn.classify(k));
+//
+//    for (int i = 0; i != v.size(); ++i) {
+//        cout << v.at(i) << endl;
+//    }
+//        cout << endl;
+//    }
     return 0;
 }

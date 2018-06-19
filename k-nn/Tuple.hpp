@@ -32,6 +32,7 @@ public:
     const vecFloat& getFeatures() const { return features; }
     
     void addFeature(const float feature) { features.push_back(feature); }
+    void setClass(unsigned int label) {classLabel = label;}
     float distance(const vecFloat&, uint) const;
     size_t size() const { return features.size(); }
     
