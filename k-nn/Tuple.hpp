@@ -17,16 +17,16 @@
 #define Tuple_hpp
 
 #include <vector>
+#include "common.hpp"
 
+// defines a row in a database. The class label is optional
 class Tuple{
 private:
     typedef std::vector<float> vecFloat;
-    typedef unsigned int uint;
-    const int invalidClass = -77;       // some random number I picked
 public:
     Tuple():classLabel(invalidClass) {}   
     Tuple(uint cl, vecFloat vf): classLabel(cl), features(vf) {}
-    explicit Tuple(vecFloat vf): classLabel(-1), features(vf) {}
+    explicit Tuple(vecFloat vf): classLabel(invalidClass), features(vf) {}
     uint getClass() const {return classLabel;}
     float getFeature(size_t feature) const { return features.at(feature); }
     const vecFloat& getFeatures() const { return features; }

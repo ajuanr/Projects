@@ -11,6 +11,7 @@
 
 #include <queue>
 #include <map>
+#include "common.hpp"
 #include "dataSet.hpp"
 #include "Tuple.hpp"
 
@@ -20,11 +21,11 @@
 class classDist{
 public:
     classDist(): label(0), dist(0) {}
-    classDist(unsigned int label, float dist): label(label), dist(dist) {}
-    unsigned int getLabel() const {return label;}
+    classDist(uint label, float dist): label(label), dist(dist) {}
+    uint getLabel() const {return label;}
     float getDist() const {return dist;}
 private:
-    unsigned int label;
+    uint label;
     float dist;
 };
 
@@ -39,22 +40,22 @@ public:
 typedef std::priority_queue<classDist, std::vector<classDist>, Compare> myQ;
 
 class KNN{
-    typedef std::map<unsigned int, unsigned int> labelsMap;
-    typedef std::vector<unsigned int> labelsVec;
+    typedef std::map<uint, uint> labelsMap;
+    typedef std::vector<uint> labelsVec;
 public:
     KNN() {}
     KNN(Dataset<Tuple> data): data(data) {getLabels();}
     const Dataset<myQ>& getDistances() const { return distancesMatrix;}
     void fillDistancesMatrix();
-    std::vector<unsigned int>& classLabels() const;
-    labelsVec getLabels(unsigned int k=1) const;
-    labelsVec classify(unsigned int k = 1) const;
+    std::vector<uint>& classLabels() const;
+    labelsVec getLabels(uint k=1) const;
+    labelsVec classify(uint k = 1) const;
     
 private:
     Dataset<Tuple> data;            // features and class label
     Dataset<myQ> distancesMatrix;   // (tuple x tuple) distances
     
-    unsigned int vote(const labelsMap&) const;
+    uint vote(const labelsMap&) const;
     
 };
 

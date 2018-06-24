@@ -11,6 +11,7 @@
 #include <iomanip>
 #include <sstream>
 #include "KNN_Classifier.hpp"
+#include "common.hpp"
 
 #include <cstdlib>
 
@@ -75,22 +76,20 @@ void printDataset(const Dataset<T> &db) {
 }
 
 int main(int argc, const char * argv[]) {
-    //Dataset<Tuple> data(readData("CS170Smalltestdata__44.txt"));
-    Dataset<Tuple> data(readData("CS170BIGtestdata__4.txt"));
-//
+    Dataset<Tuple> data(readData("CS170Smalltestdata__44.txt"));
+    //Dataset<Tuple> data(readData("CS170BIGtestdata__4.txt"));
+    data.normalize();
     KNN knn(data);
     knn.fillDistancesMatrix();
+    
+    for (int k = 1; k <=21; k += 2 ) {
+        cout << "k: " << k << endl;
+        std::vector<unsigned int> v(knn.classify(k));
 
-    
-    
-//    for (int k = 1; k <=21; k += 2 ) {
-//        cout << k << endl;
-//    std::vector<unsigned int> v(knn.classify(k));
-//
-//    for (int i = 0; i != v.size(); ++i) {
-//        cout << v.at(i) << endl;
-//    }
-//        cout << endl;
-//    }
+        for (int i = 0; i != v.size(); ++i) {
+            cout << v.at(i) << endl;
+        }
+        cout << endl;
+    }
     return 0;
 }
