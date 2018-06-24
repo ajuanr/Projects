@@ -19,7 +19,7 @@ struct Vertex {
 
 class Edge{
 public:
-    Edge(Vertex v1, Vertex v2, int w=0){vertex1=v1; vertex2=v2; weight=w;}
+    Edge(Vertex v1, Vertex v2, int w=0):weight(w){vertex1=v1; vertex2=v2;}
     
     const Vertex& getVertex1() const {return vertex1;}
     const Vertex& getVertex2() const {return vertex2;}

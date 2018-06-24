@@ -12,15 +12,16 @@ bool Edge::operator==(const Edge& rhs) const {
     // check if first vertex matches the vertex we're comparing
     if (!(this->vertex1.id.compare(rhs.getVertex1().id)) ||
         !(this->vertex1.id.compare(rhs.getVertex2().id))) {
-        
+        // check if second vertex matches
         if (!(this->vertex2.id.compare(rhs.getVertex1().id)) ||
             !(this->vertex2.id.compare(rhs.getVertex2().id))) {
             return true;
         }
     }
+    // both vertices did not match
     return false;
 }
 
 bool Edge::operator<(const Edge& rhs) const {
-    return (weight < rhs.getWeight());
+    return (this->weight < rhs.getWeight());
 }

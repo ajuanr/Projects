@@ -71,8 +71,3 @@ bool Graph::hasCycleUtil(const Edge& e, EdgeLst& edges, const Edge& parent) cons
     return false;
 }
 
-bool Graph::check() const {
-    Edge e = *graph.begin();
-    EdgeLst *edges = new EdgeLst();
-    return hasCycleUtil(e, *edges, e);
-}

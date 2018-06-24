@@ -12,21 +12,18 @@
 #include <list>
 #include "Edge.hpp"
 
-
-
 class Graph {
 public:
     typedef std::list<Edge> EdgeLst;
     Graph() {}              // default constructor. Empty graph
     void addEdge(const Edge& e);
-    void addEdge(Vertex u, Vertex v) {addEdge(Edge(u,v));}
+    void addEdge(Vertex u, Vertex v, int weight = 0) {addEdge(Edge(u,v,weight));}
     void removeEdge(const Edge &e);
     
     const EdgeLst& getGraph() const {return graph;}
     size_t size() const { return graph.size();}
     
-    bool hasCycle() const;
-    bool check()const;
+    bool hasCycle() const; // returns true if graph has cycle
 private:
     EdgeLst graph;
     

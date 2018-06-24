@@ -27,8 +27,8 @@ int main(int argc, const char * argv[]) {
     Vertex j("j");
     
     Graph graph;
-    graph.addEdge(a, b);
-    graph.addEdge(a, e);
+    graph.addEdge(a, b, 1);
+    graph.addEdge(a, e, 2);
     graph.addEdge(a, f);
     graph.addEdge(b, c);
     graph.addEdge(b, d);
@@ -41,12 +41,12 @@ int main(int argc, const char * argv[]) {
     graph.addEdge(f, a);
     graph.addEdge(h, i);
     
-    //printGraph(graph.getGraph());
+    printGraph(graph.getGraph());
     
     Graph simple;
     simple.addEdge(a,b);
     simple.addEdge(a,e);
-    //simple.addEdge(b,e);
+    simple.addEdge(b,e);
     
     Edge t1(a,b);
     Edge t2(b,a);
@@ -58,7 +58,11 @@ int main(int argc, const char * argv[]) {
 }
 
 void printEdge(const Edge& e) {
-    cout << e.getVertex1().id << "---" << e.getVertex2().id << endl;
+    cout << e.getVertex1().id << "-";
+//    if (e.getWeight() != 0) {
+    cout << e.getWeight();
+//    }
+    cout << "-" << e.getVertex2().id << endl;
 }
 
 void printGraph(const list<Edge> &edges) {
