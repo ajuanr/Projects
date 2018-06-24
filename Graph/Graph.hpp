@@ -16,6 +16,7 @@ class Graph {
 public:
     typedef std::list<Edge> EdgeLst;
     Graph() {}              // default constructor. Empty graph
+    Graph(const Graph& g) {graph = g.graph;}
     void addEdge(const Edge& e);
     void addEdge(Vertex u, Vertex v, int weight = 0) {addEdge(Edge(u,v,weight));}
     void removeEdge(const Edge &e);
@@ -24,6 +25,7 @@ public:
     size_t size() const { return graph.size();}
     
     bool hasCycle() const; // returns true if graph has cycle
+    Graph MST() const;
 private:
     EdgeLst graph;
     

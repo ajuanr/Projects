@@ -21,11 +21,11 @@ void Graph::removeEdge(const Edge &e) {
     std::list<Edge>::iterator edge = std::find(graph.begin(), graph.end(), e);
     // only remove edge if it was found in the graph
     if ( edge != graph.end()) {
-        graph.remove(*edge);
+        graph.remove(e);
     }
 }
 
-// assumes e1 and e2 are not the same edge
+// e1 and e2 should not be the same edge
 bool Graph::hasCommonVertex(const Edge &e1, const Edge &e2) const {
     return ( !(e1.getVertex1().id.compare(e2.getVertex1().id)) ||
              !(e1.getVertex1().id.compare(e2.getVertex2().id)) ||
@@ -71,3 +71,18 @@ bool Graph::hasCycleUtil(const Edge& e, EdgeLst& edges, const Edge& parent) cons
     return false;
 }
 
+// Create an MST using Kruskal's algorithm
+Graph Graph::MST() const {
+    Graph out;
+    EdgeLst copy = graph;
+    copy.sort();
+    
+    
+    EdgeLst::const_iterator edge;
+    for (edge=copy.begin(); edge != copy.end(); ++edge) {
+        // add edge and make sure it does not create a cycle
+        out.addEdge(*edge);
+        if ( out.hasCycle() ) out.removeEdge(*edge);
+    }
+    return out;
+}

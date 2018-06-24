@@ -12,7 +12,8 @@
 using namespace std;
 
 void printEdge(const Edge& e);
-void printGraph(const list<Edge>&);
+void printEdges(const list<Edge>&);
+void printGraph(const Graph&);
 
 int main(int argc, const char * argv[]) {
     Vertex a("a");
@@ -27,48 +28,56 @@ int main(int argc, const char * argv[]) {
     Vertex j("j");
     
     Graph graph;
-    graph.addEdge(a, b, 1);
-    graph.addEdge(a, e, 2);
-    graph.addEdge(a, f);
-    graph.addEdge(b, c);
-    graph.addEdge(b, d);
-    graph.addEdge(b, e);
-    graph.addEdge(c, d);
-    graph.addEdge(c, i);
-    graph.addEdge(c, j);
-    graph.addEdge(d, g);
-    graph.addEdge(e, g);
-    graph.addEdge(f, a);
-    graph.addEdge(h, i);
+    graph.addEdge(a, b, 3);
+    graph.addEdge(a, e, 6);
+    graph.addEdge(a, f, 8);
+    graph.addEdge(b, c, 10);
+    graph.addEdge(b, d, 2);
+    graph.addEdge(b, e, 1);
+    graph.addEdge(c, d, 3);
+    graph.addEdge(c, i, 7);
+    graph.addEdge(c, j, 8);
+    graph.addEdge(d, g, 4);
+    graph.addEdge(d, h, 5);
+    graph.addEdge(e, g, 2);
+    graph.addEdge(h, i, 6);
     
-    printGraph(graph.getGraph());
+    printGraph(graph);
     
     Graph simple;
-    simple.addEdge(a,b);
-    simple.addEdge(a,e);
-    simple.addEdge(b,e);
+    simple.addEdge(a,b, 7);
+    simple.addEdge(a,e, 4);
+    simple.addEdge(b,e, 1);
     
     Edge t1(a,b);
     Edge t2(b,a);
     Edge t3(a,b);
     
-    cout << simple.hasCycle() << endl;
+    cout << graph.hasCycle() << endl;
+    
+    Graph simCpy(graph.MST());
+    cout << endl;
+    printGraph(simCpy);
     
     return 0;
 }
 
 void printEdge(const Edge& e) {
     cout << e.getVertex1().id << "-";
-//    if (e.getWeight() != 0) {
+    if (e.getWeight() != 0) {
     cout << e.getWeight();
-//    }
+    }
     cout << "-" << e.getVertex2().id << endl;
 }
 
-void printGraph(const list<Edge> &edges) {
+void printEdges(const list<Edge> &edges) {
     for (list<Edge>::const_iterator iter = edges.begin();
          iter != edges.end(); ++iter) {
         printEdge(*iter);
     }
     cout << endl;
+}
+
+void printGraph(const Graph& graph) {
+    printEdges(graph.getGraph());
 }
