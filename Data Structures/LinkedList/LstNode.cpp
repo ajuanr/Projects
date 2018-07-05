@@ -15,13 +15,13 @@ LstNode::LstNode(const LstNode& listnode) {
     }
 }
 
-//creates a new node and current node points to it if next doesn't exist
-// else, update data in next
-void LstNode::setNext(int data) {
-    if (next) {
-        next->set(data);
-    }
-    else {
-        next = new LstNode(data);
-    }
-}
+////creates a new node and current node points to it if next doesn't exist
+//// else, update data in next
+//void LstNode::setNext(int data) {
+//    if (next) {
+//        next->set(data);
+//    }
+//    else {
+//        next = new LstNode(data);
+//    }
+//}

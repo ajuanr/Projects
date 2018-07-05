@@ -19,20 +19,15 @@ public:
     LstNode():Node() {}
     LstNode(int data):Node(data), next(0) {}
     LstNode(const LstNode&);
-    ~LstNode() {delete next;}
     
-    void setNext(LstNode *next) {this->next = next;} // point to exisiting node
-    void setNext(int);
+    void chain(LstNode *newLink) {this->next = newLink;} // point to exisiting node
+    void unchain() { this->next = 0;}
     
     LstNode* getNext() {return next;}
     LstNode* getNext() const {return next;}
     
-    void removeNext() {deleteNext();}
-    
 private:
     LstNode *next;
-    
-    void deleteNext() {if (next) {delete next; next = 0;}}
 };
 
 #endif /* LstNode_hpp */
