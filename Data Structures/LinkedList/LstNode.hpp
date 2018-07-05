@@ -24,7 +24,7 @@ public:
     void unchain() { this->next = 0;}
     
     LstNode* getNext() {return next;}
-    LstNode* getNext() const {return next;}
+    const LstNode* getNext() const {return next;}
     
 private:
     LstNode *next;
