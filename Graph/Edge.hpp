@@ -29,6 +29,8 @@ public:
     void setVertex2(Vertex& v) {vertex2 = v;}
     void setWeight(int w) { weight=w;}
     
+    void print() const;
+    
     bool operator==(const Edge& rhs) const;
     bool operator!=(const Edge& rhs) const { return !(*this == rhs); }
     bool operator<(const Edge& rhs) const;

@@ -8,6 +8,7 @@
 
 #include "Graph.hpp"
 #include <algorithm>
+#include <iostream>
 
 void Graph::addEdge(const Edge &e) {
     // only add edge if it's not already in the graph
@@ -39,6 +40,7 @@ bool Graph::hasCycle() const{
     // go through all the edges in the graph
     for (iter = graph.begin(); iter != graph.end(); ++iter) {
         EdgeLst *edges = new EdgeLst();
+        edges->push_back(*iter);
         if ( hasCycleUtil(*iter, *edges, *iter) ) {
             delete edges;
             return true;
@@ -49,7 +51,6 @@ bool Graph::hasCycle() const{
 }
 
 bool Graph::hasCycleUtil(const Edge& e, EdgeLst& edges, const Edge& parent) const{
-    edges.push_back(e);
     const uint8_t minCycleSize = 3;
     EdgeLst::const_iterator iter;
     // go through all the edges in the graph
@@ -58,17 +59,27 @@ bool Graph::hasCycleUtil(const Edge& e, EdgeLst& edges, const Edge& parent) cons
         if ( hasCommonVertex(e, *iter) ) {
             // check if edge *iter not already in list
             if (find(edges.begin(), edges.end(), *iter) == edges.end()) {
+                edges.push_back(*iter);
                 if (hasCycleUtil(*iter, edges, parent))
                     return true;
             }
             // back at start. Check if enough edges to form a cycle
-            else if (edges.size() >= minCycleSize  && *iter == parent) {
+            else if (edges.size() >= minCycleSize  && *iter == parent
+                     && hasCommonVertex(*iter, parent)) {
                 return true;
             }
             else {} // don't do anything
         }
     }
     return false;
+}
+
+void Graph::print() const {
+    for (EdgeLst::const_iterator iter = graph.begin();
+         iter != graph.end(); ++iter) {
+        iter->print();
+    }
+    std::cout << std::endl;
 }
 
 // Create an MST using Kruskal's algorithm

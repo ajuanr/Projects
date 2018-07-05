@@ -7,6 +7,7 @@
 //
 
 #include "Edge.hpp"
+#include <iostream>
 
 bool Edge::operator==(const Edge& rhs) const {
     // check if first vertex matches the vertex we're comparing
@@ -24,4 +25,12 @@ bool Edge::operator==(const Edge& rhs) const {
 
 bool Edge::operator<(const Edge& rhs) const {
     return (this->weight < rhs.getWeight());
+}
+
+void Edge::print() const {
+    std::cout << vertex1.id << "-";
+    if (weight != 0) {
+        std::cout << weight;
+    }
+    std::cout << "--" << vertex2.id << std::endl;
 }

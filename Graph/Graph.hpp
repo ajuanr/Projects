@@ -22,6 +22,7 @@ public:
     void removeEdge(const Edge &e);
     
     const EdgeLst& getGraph() const {return graph;}
+    void print() const;
     size_t size() const { return graph.size();}
     
     bool hasCycle() const; // returns true if graph has cycle
