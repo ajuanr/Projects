@@ -39,7 +39,7 @@ void LnkdLst::destroy(LstNode *node) {
     }
 }
 
-void LnkdLst::add(int data) {
+void LnkdLst::append(int data) {
     if (head) {
         LstNode* worker = head;
         while (worker->getNext()) {
@@ -60,19 +60,20 @@ void LnkdLst::remove(int data) {
             previous = current;
             current = current->getNext();
         }
+        // data is the first element
         if (current == head) {
             removeHead();
         }
+        // data is the last element
         else if (!current->getNext()) {
             previous->unchain();
             destroy(current);
         }
+        // data somewhere in the middle
         else {
             previous->chain(current->getNext());
             destroy(current);
         }
-        
-    
     }
 }
 
@@ -100,3 +101,19 @@ void LnkdLst::removeHead() {
         }
     }
 }
+
+void LnkdLst::sort() {
+    sortUtil(head);
+}
+
+LstNode* LnkdLst::sortUtil(LstNode *node) {
+    if (!head->getNext()) {
+        return head;
+    }
+    int front;
+    int back;
+    splitHalfs(head, front, back);
+    return sortUtil(head);
+}
+
+//void LnkdLst::splitHalfs(LstNode *head, int& front, int &back)

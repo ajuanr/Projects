@@ -17,17 +17,21 @@ public:
     LnkdLst(int);
     ~LnkdLst();
     
-    void add(int);
+    void append(int);
     void remove(int);
     void print() const;
+    void sort();
     
 private:
     LstNode *head;
+    unsigned int size = 0;
     
     LstNode* create(int); // create a new node and return it
     void destroy(LstNode*);
     
     void removeHead();
+    LstNode* sortUtil(LstNode*);
+    void splitHalfs(LstNode*, int&, int&);
 };
 
 #endif /* LnkdLst_hpp */
